@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/cameraViewHolder"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true" />
+
+    <com.adamratana.rotationvectorcompass.OverlayView
+        android:id="@+id/rotateView2"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:keepScreenOn="true" />
+
+    <ToggleButton
+        android:id="@+id/lock_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/perspective_toggle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0dp"
+        android:checked="true"
+        android:textOff="LOCK"
+        android:textOn="LOCK"
+        android:textSize="11sp" />   
+    
+    <ToggleButton
+        android:id="@+id/perspective_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/fs_toggle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0dp"
+        android:checked="true"
+        android:textOff="O"
+        android:textOn="P"
+        android:textSize="11sp" />    
+    
+    <ToggleButton
+        android:id="@+id/fs_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/cam_toggle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0dp"
+        android:checked="true"
+        android:textOff="FS"
+        android:textOn="FS"
+        android:textSize="11sp" />
+
+    <ToggleButton
+        android:id="@+id/cam_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/sensor_toggle"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0dp"
+        android:checked="true"
+        android:textOff="CAM"
+        android:textOn="CAM"
+        android:textSize="11sp" />
+
+    <ToggleButton
+        android:id="@+id/sensor_toggle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="0dp"
+        android:checked="true"
+        android:textOff="MA"
+        android:textOn="RV"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/fov_text"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="20dp"
+        android:layout_marginRight="10dp"
+        android:background="@drawable/translucent_rounded_rectangle"
+        android:lines="6"
+        android:paddingLeft="5dp"
+        android:text=""
+        android:textSize="10sp"
+        android:textStyle="bold" />
+
+    <SeekBar
+        android:id="@+id/fov_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="0dp"
+        android:layout_toLeftOf="@+id/fov_text"
+        android:layout_toRightOf="@+id/sensor_toggle"
+        android:max="1000"
+        android:progress="0" />
+</RelativeLayout>
