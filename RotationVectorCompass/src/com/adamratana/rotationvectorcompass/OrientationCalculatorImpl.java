@@ -12,22 +12,26 @@ import com.adamratana.rotationvectorcompass.math.Vector3;
 import com.adamratana.rotationvectorcompass.math.Vector4;
 
 /**
- * A really brute-force implementation to derive the orientation of the device based on where the back of the device is pointing when not held flat, or, 
- * when held flat, where the top of the device is pointing.  This is tricky, because where the device is pointing changes depending on how we're holding the device, as well as the 
- * screen rotation of the device.
+ * A really brute-force implementation to derive the orientation of the device
+ * based on where the back of the device is pointing when not held flat, or,
+ * when held flat, where the top of the device is pointing. This is tricky,
+ * because where the device is pointing changes depending on how we're holding
+ * the device, as well as the screen rotation of the device.
  * 
- * What this does is rotate all the points according to the rotation matrix, and then take a look at where reference points ended up (6 points on a sphere, to determine bearing, pitch, roll).
- * Yeah, it's bad, and there has to be a much simpler way. 
+ * What this does is rotate all the points according to the rotation matrix, and
+ * then take a look at where reference points ended up (6 points on a sphere, to
+ * determine bearing, pitch, roll). Yeah, it's bad, and there has to be a much
+ * simpler way.
  * 
  * TODO: replace with something that works far more efficiently and reasonably.
  * 
  * @author Adam
- *
+ * 
  */
 public class OrientationCalculatorImpl implements OrientationCalculator {
 	private static final float DEGREES_TO_RADIANS = (float) (Math.PI / 180.0f);
 	private static final float RADIANS_TO_DEGREES = (float) (180.0f / Math.PI);
-	
+
 	// determines the number of points of the sphere
 	private static final int POINTS_PER_SEGMENT = 72;
 	private static final int NUM_SEGMENTS = 11;
@@ -37,25 +41,25 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 	private ArrayList<Vector3> mVertices = new ArrayList<Vector3>(NUM_POINTS + 1);
 
 	private Vector3 mRollTopAbsolute = new Vector3(), mRollBottomAbsolute = new Vector3(), mOriginPoint = new Vector3(), mReticlePoint = new Vector3();
-	private Vector3  mSphereTop = new Vector3(), mSphereBottom = new Vector3(), mNorthReference = new Vector3();
+	private Vector3 mSphereTop = new Vector3(), mSphereBottom = new Vector3(), mNorthReference = new Vector3();
 	private Vector3 mNorthAbsolute = new Vector3(), mSouthAbsolute = new Vector3(), mWestAbsolute = new Vector3(), mEastAbsolute = new Vector3();
 
 	private Matrix mOrthographicProjectionMatrix = new Matrix();
 	private Matrix mModelViewMatrix = new Matrix();
-	
+
 	private List<Vector3> mOrthographicVertexBatch = new ArrayList<Vector3>();
 	private Vector4 vTemp = new Vector4();
 
 	public OrientationCalculatorImpl() {
 		mOrthographicProjectionMatrix.setToOrtho2D(0, 0, 1, -1);
-		
+
 		for (int i = 0; i < NUM_POINTS; i++) {
 			mVertices.add(new Vector3());
 		}
 		mOrthographicVertexBatch.addAll(mVertices);
 		mOrthographicVertexBatch.add(mSphereTop);
 		mOrthographicVertexBatch.add(mSphereBottom);
-		mOrthographicVertexBatch.add(mNorthReference);		
+		mOrthographicVertexBatch.add(mNorthReference);
 	}
 
 	@Override
@@ -95,7 +99,8 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 			deviceAltitude = 0;
 		}
 
-		// BEARING - if held flat, we calculate one way, if not, we calculate another
+		// BEARING - if held flat, we calculate one way, if not, we calculate
+		// another
 		mReticlePoint.set(0.5f * xScale, 0.5f * yScale, -xScale);
 		if (Math.abs(deviceAltitude) < 75) {
 			int closestPoint = 0, pot1 = 0, pot2 = 0, neighbor = 0, left = 0;
@@ -220,7 +225,8 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 			deviceBearing = 0;
 		}
 
-		// ROLL - calculate only when not held flat, ignore when altitude (pitch) is less than 15
+		// ROLL - calculate only when not held flat, ignore when altitude
+		// (pitch) is less than 15
 		if (Math.abs(deviceAltitude) < 75) {
 			mRollTopAbsolute.set(0.5f * xScale, 0.2f * yScale, 0);
 			mRollBottomAbsolute.set(0.5f * xScale, 0.8f * yScale, 0);
@@ -277,11 +283,10 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 		out[2] = deviceRoll;
 	}
 
-
 	private void resetPoints() {
 		mSphereTop.set(0, 0, 1);
 		mSphereBottom.set(0, 0, -1);
-		
+
 		for (int j = 0; j < NUM_SEGMENTS; j++) {
 			int idx = j - 5;
 			float jCosVal = FloatMath.cos(DEGREES_TO_RADIANS * (float) (idx * 15));
@@ -292,9 +297,9 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 				mVertices.get(i + (POINTS_PER_SEGMENT * j)).set(sinVal * jCosVal * 1, -cosVal * jCosVal * 1, jCosValInv * 1);
 			}
 		}
-		
+
 		// a reference to the N point on the sphere.
-		mNorthReference.set(mVertices.get(POINTS_PER_SEGMENT * 5));				
+		mNorthReference.set(mVertices.get(POINTS_PER_SEGMENT * 5));
 	}
 
 	/**
@@ -309,28 +314,28 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 		final float orthoScale = 1.0f;
 		mModelViewMatrix.idt().mul(mOrthographicProjectionMatrix).mul(rotationMatrix);
 		switch (screenRotation) {
-			case Surface.ROTATION_0:
-			case Surface.ROTATION_90:
-			case Surface.ROTATION_270:
-				for (Vector3 v : mOrthographicVertexBatch) {
-					vTemp.set(v.x, -v.y, -v.z, 0);
-					vTemp.mul(mModelViewMatrix);
-					v.x = (vTemp.x) * 0.5f * width * orthoScale + width / 2;
-					v.y = (vTemp.y) * 0.5f * width * orthoScale + width / 2 + (height - width) / 2;
-					v.z = vTemp.z * 0.5f * width * orthoScale;
-				}
-				break;
-			// For 180, we have to reflect x and y values
-			case Surface.ROTATION_180:
-				for (Vector3 v : mOrthographicVertexBatch) {
-					vTemp.set(v.x, -v.y, -v.z, 0);
-					vTemp.mul(mModelViewMatrix);
-					// reflect x and y axes...
-					v.x = (-vTemp.x) * 0.5f * width + width / 2;
-					v.y = (-vTemp.y) * 0.5f * width + width / 2 + (height - width) / 2;
-					v.z = vTemp.z * 0.5f * width;
-				}
-				break;
+		case Surface.ROTATION_0:
+		case Surface.ROTATION_90:
+		case Surface.ROTATION_270:
+			for (Vector3 v : mOrthographicVertexBatch) {
+				vTemp.set(v.x, -v.y, -v.z, 0);
+				vTemp.mul(mModelViewMatrix);
+				v.x = (vTemp.x) * 0.5f * width * orthoScale + width / 2;
+				v.y = (vTemp.y) * 0.5f * width * orthoScale + width / 2 + (height - width) / 2;
+				v.z = vTemp.z * 0.5f * width * orthoScale;
+			}
+			break;
+		// For 180, we have to reflect x and y values
+		case Surface.ROTATION_180:
+			for (Vector3 v : mOrthographicVertexBatch) {
+				vTemp.set(v.x, -v.y, -v.z, 0);
+				vTemp.mul(mModelViewMatrix);
+				// reflect x and y axes...
+				v.x = (-vTemp.x) * 0.5f * width + width / 2;
+				v.y = (-vTemp.y) * 0.5f * width + width / 2 + (height - width) / 2;
+				v.z = vTemp.z * 0.5f * width;
+			}
+			break;
 		}
 	}
 }

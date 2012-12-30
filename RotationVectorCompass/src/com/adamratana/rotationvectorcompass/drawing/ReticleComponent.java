@@ -8,10 +8,12 @@ import android.graphics.Paint;
 import android.graphics.Paint.Style;
 
 import com.adamratana.rotationvectorcompass.math.Vector3;
+
 /**
  * A target reticle, static, in the middle of the display
+ * 
  * @author Adam
- *
+ * 
  */
 public class ReticleComponent implements DrawingComponent {
 	@Override
@@ -27,8 +29,8 @@ public class ReticleComponent implements DrawingComponent {
 	@Override
 	public void addTo(Collection<Vector3> transformationCollection) {
 	}
-	
+
 	@Override
 	public void prepareDraw() {
-	}	
+	}
 }

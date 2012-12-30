@@ -1,7 +1,8 @@
 package com.adamratana.rotationvectorcompass.math;
 
 /**
- * Derived from Vector3 from libgdx - encapsulates a 4 component vector for representing Homogeneous Coordinates
+ * Derived from Vector3 from libgdx - encapsulates a 4 component vector for
+ * representing Homogeneous Coordinates
  */
 public final class Vector4 {
 	/** the x-component of this vector **/

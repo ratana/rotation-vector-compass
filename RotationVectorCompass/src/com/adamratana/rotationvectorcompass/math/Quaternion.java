@@ -19,140 +19,139 @@ package com.adamratana.rotationvectorcompass.math;
 import java.io.Serializable;
 
 /**
- * A simple quaternion class. See http://en.wikipedia.org/wiki/Quaternion for more information.
+ * A simple quaternion class. See http://en.wikipedia.org/wiki/Quaternion for
+ * more information.
  * 
  * @author badlogicgames@gmail.com
- *
+ * 
  */
-public final class Quaternion implements Serializable
-{   
+public final class Quaternion implements Serializable {
 	private static final long serialVersionUID = -7661875440774897168L;
 	public float x;
 	public float y;
 	public float z;
-	public float w;      
+	public float w;
 
-   
-    /**
-     * Constructor, sets the four components of the quaternion.
-     * @param x The x-component
-     * @param y The y-component
-     * @param z The z-component
-     * @param w The w-component
-     */
-    public Quaternion(float x, float y, float z, float w)
-    {
-        this.set(x,y,z,w);
-    }
+	/**
+	 * Constructor, sets the four components of the quaternion.
+	 * 
+	 * @param x
+	 *            The x-component
+	 * @param y
+	 *            The y-component
+	 * @param z
+	 *            The z-component
+	 * @param w
+	 *            The w-component
+	 */
+	public Quaternion(float x, float y, float z, float w) {
+		this.set(x, y, z, w);
+	}
 
-    Quaternion( )
-    {
-    	
-    }
-    
-    /**
-     * Constructor, sets the quaternion components from the given
-     * quaternion.
-     * 
-     * @param quaternion The quaternion to copy.
-     */
-    public Quaternion(Quaternion quaternion)
-    {
-        this.set(quaternion);
-    }
+	Quaternion() {
 
-    /**
-     * Constructor, sets the quaternion from the given axis vector
-     * and the angle around that axis in degrees.
-     * 
-     * @param axis The axis
-     * @param angle The angle in degrees.
-     */
-    public Quaternion(Vector3 axis, float angle)
-    {
-        this.set(axis,angle);
-    }
+	}
 
-    /**
-     * Sets the components of the quaternion
-     * @param x The x-component
-     * @param y The y-component
-     * @param z The z-component
-     * @param w The w-component
-     * @return This quaternion for chaining
-     */
-    public Quaternion set(float x, float y, float z, float w)
-    {
-        this.x=x;
-        this.y=y;
-        this.z=z;
-        this.w=w;        
-        return this;
-    }
+	/**
+	 * Constructor, sets the quaternion components from the given quaternion.
+	 * 
+	 * @param quaternion
+	 *            The quaternion to copy.
+	 */
+	public Quaternion(Quaternion quaternion) {
+		this.set(quaternion);
+	}
 
-    /**
-     * Sets the quaternion components from the given quaternion.
-     * @param quaternion The quaternion.
-     * @return This quaternion for chaining.
-     */
-    public Quaternion set(Quaternion quaternion)
-    {
-        return this.set(quaternion.x,quaternion.y,quaternion.z,quaternion.w);
-    }
+	/**
+	 * Constructor, sets the quaternion from the given axis vector and the angle
+	 * around that axis in degrees.
+	 * 
+	 * @param axis
+	 *            The axis
+	 * @param angle
+	 *            The angle in degrees.
+	 */
+	public Quaternion(Vector3 axis, float angle) {
+		this.set(axis, angle);
+	}
 
-    /**
-     * Sets the quaternion components from the given axis and
-     * angle around that axis.
-     * 
-     * @param axis The axis
-     * @param angle The angle in degrees
-     * @return This quaternion for chaining.
-     */
-    public Quaternion set(Vector3 axis, float angle)
-    {
-        float l_ang= (float)(angle *(Math.PI/180));
-        float l_sin = (float)(Math.sin(l_ang/2));
-        float l_cos = (float)(Math.cos(l_ang/2));
-        return this.set(axis.x*l_sin,
-                        axis.y*l_sin,
-                        axis.z*l_sin,
-                        l_cos).nor();
-    }
+	/**
+	 * Sets the components of the quaternion
+	 * 
+	 * @param x
+	 *            The x-component
+	 * @param y
+	 *            The y-component
+	 * @param z
+	 *            The z-component
+	 * @param w
+	 *            The w-component
+	 * @return This quaternion for chaining
+	 */
+	public Quaternion set(float x, float y, float z, float w) {
+		this.x = x;
+		this.y = y;
+		this.z = z;
+		this.w = w;
+		return this;
+	}
 
-    /**
-     * @return a copy of this quaternion
-     */
-    public Quaternion cpy()
-    {
-        return new Quaternion(this);
-    }
+	/**
+	 * Sets the quaternion components from the given quaternion.
+	 * 
+	 * @param quaternion
+	 *            The quaternion.
+	 * @return This quaternion for chaining.
+	 */
+	public Quaternion set(Quaternion quaternion) {
+		return this.set(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+	}
 
-    /**
-     * @return the euclidian length of this quaternion
-     */
-    public float len()
-    {
-        return (float)Math.sqrt(x * x + y * y + z * z + w * w );
-    }
+	/**
+	 * Sets the quaternion components from the given axis and angle around that
+	 * axis.
+	 * 
+	 * @param axis
+	 *            The axis
+	 * @param angle
+	 *            The angle in degrees
+	 * @return This quaternion for chaining.
+	 */
+	public Quaternion set(Vector3 axis, float angle) {
+		float l_ang = (float) (angle * (Math.PI / 180));
+		float l_sin = (float) (Math.sin(l_ang / 2));
+		float l_cos = (float) (Math.cos(l_ang / 2));
+		return this.set(axis.x * l_sin, axis.y * l_sin, axis.z * l_sin, l_cos).nor();
+	}
 
-    /**
-     * Normalizes the quaternion.
-     * @return This quaternion for chaining.
-     */
-    public Quaternion nor()
-    {
-        float l_len=this.len();
-        return this.set(x/l_len,
-                        y/l_len,
-                        z/l_len,
-                        w/l_len);
-    }
+	/**
+	 * @return a copy of this quaternion
+	 */
+	public Quaternion cpy() {
+		return new Quaternion(this);
+	}
 
-    /**
-     * {@inheritDoc}
-     */
-    public String toString()
-    {
-        return "["+x+"|"+y+"|"+z+"|"+w+"]";
-    }    
+	/**
+	 * @return the euclidian length of this quaternion
+	 */
+	public float len() {
+		return (float) Math.sqrt(x * x + y * y + z * z + w * w);
+	}
+
+	/**
+	 * Normalizes the quaternion.
+	 * 
+	 * @return This quaternion for chaining.
+	 */
+	public Quaternion nor() {
+		float l_len = this.len();
+		return this.set(x / l_len, y / l_len, z / l_len, w / l_len);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	public String toString() {
+		return "[" + x + "|" + y + "|" + z + "|" + w + "]";
+	}
 }

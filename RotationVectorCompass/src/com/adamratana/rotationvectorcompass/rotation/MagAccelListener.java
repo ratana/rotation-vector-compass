@@ -6,12 +6,13 @@ import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 
 /**
- * Magnetometer / Accelerometer sensor fusion
- * Smoothed by means of simple high pass filter
+ * Magnetometer / Accelerometer sensor fusion Smoothed by means of simple high
+ * pass filter
  * 
  * When it receives an event it will notify the constructor-specified delegate.
+ * 
  * @author Adam
- *
+ * 
  */
 public class MagAccelListener implements SensorEventListener {
 	private float[] mRotationM = new float[16];
