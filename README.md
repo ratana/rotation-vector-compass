@@ -1,6 +1,6 @@
-# Rotation Vector Augmented Reality Compass
+# Android Rotation Vector Augmented Reality Compass
 
-###An Augmented Reality Compass using the Rotation Vector Sensor:  
+###An Augmented Reality Compass using the Rotation Vector Sensor for Android:  
 This project is a proof of concept for various experiments involving the Rotation Vector Sensor, Augmented Reality, overlaying these on top of a Camera Preview, and using the Canvas API for drawing.
 
 Contributions welcome, especially with regard to improving compatibility with any non-conforming devices, and with improving the orientation derivation.
