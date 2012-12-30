@@ -1,7 +1,9 @@
 # Rotation Vector Augmented Reality Compass
 
 ###An Augmented Reality Compass using the Rotation Vector Sensor:  
-This project is a proof of concept for various experiments involving the Rotation Vector Sensor, Augmented Reality, overlaying these on top of a Camera Preview, and using the Canvas API for drawing.  
+This project is a proof of concept for various experiments involving the Rotation Vector Sensor, Augmented Reality, overlaying these on top of a Camera Preview, and using the Canvas API for drawing.
+
+Contributions welcome, especially with regard to improving compatibility with any non-conforming devices, and with improving the orientation derivation.
 
 ## Uses the Canvas API for drawing:
 
@@ -13,9 +15,9 @@ In addition we manually perform rotation and translation and vector manipulation
 
 As an academic display of how both work, to compare and contrast, especially for those who many be unfamiliar.
 
-## Open-source [LibGDX](https://github.com/libgdx/libgdx) for certain math classes:
+## Open-source [LibGDX](https://github.com/libgdx/libgdx) (Apache 2.0) for certain math classes:
 	
-Uses [LibGDX](https://github.com/libgdx/libgdx) for Matrix, Quaternion, Vector3 classes, Vector4 derived from Vector3
+Uses [LibGDX](https://github.com/libgdx/libgdx) for Matrix, Quaternion, Vector3 classes; Vector4 derived from Vector3
 
 ## Uses the Rotation Vector virtual Sensor:
 	
@@ -33,26 +35,26 @@ A brute-force approach, but using typical API methods such as SensorManager.getO
 
 ## Camera preview integration, with portrait mode support:
 
-Overlays the compass on top of the camera preview
-Uses the camera reported field of view information to properly apply perspective to the compass
-Supports the Camera when the devices is held in Portrait mode, could find few working examples of this
+- Overlays the compass on top of the camera preview
+- Uses the camera reported field of view information to properly apply perspective to the compass
+- Supports the Camera when the devices is held in Portrait mode, could find few working examples of this
  	
-## Employing fixes for known device abberations in the wild:
+## Employs fixes for known device abberations in the wild:
 
-Some devices report 0 for field of view
-ZTE Blade crashes while calling Camera.Parameters.getHorizontalViewAngle()
-Some devices when rotating the camera display by 0 degrees do not behave correctly
+- Some devices report 0 for field of view
+- ZTE Blade crashes while calling Camera.Parameters.getHorizontalViewAngle()
+- Some devices when rotating the camera display by 0 degrees do not behave correctly
 
 ## Supports Variable Device Orientation, Full Screen:
 
-Allows the rotation of the device, rather than locking to portrait or landscape
-Programatically allows for locking of the current orientation
-Programatically allows for toggling of full screen display
+- Allows the rotation of the device, rather than locking to portrait or landscape
+- Programatically allows for locking of the current orientation
+- Programatically allows for toggling of full screen display
  
 ## Conditional support back to 2.1:
 
 Branching is applied for API calls which are incompatible with 2.1, 2.2:
 
 - Setting the camera display rotation is not possible in 2.1
-- getting the camera field of view is also not possible in 2.1
+- Getting the camera field of view is also not possible in 2.1
 - Rotation Vector not available prior to 2.3
