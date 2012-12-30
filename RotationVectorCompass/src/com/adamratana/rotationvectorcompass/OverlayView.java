@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.adamratana.rotationvectorcompass.drawing.CompassComponent;
 import com.adamratana.rotationvectorcompass.drawing.DrawingComponent;
 import com.adamratana.rotationvectorcompass.drawing.ReticleComponent;
-import com.adamratana.rotationvectorcompass.math.Matrix;
+import com.adamratana.rotationvectorcompass.math.Matrix4;
 import com.adamratana.rotationvectorcompass.math.Vector3;
 import com.adamratana.rotationvectorcompass.math.Vector4;
 
@@ -58,15 +58,15 @@ public class OverlayView extends View {
 	/**
 	 * a matrix to use for creating a perspective projection transform
 	 */
-	private Matrix mPerspectiveProjectionMatrix = new Matrix();
+	private Matrix4 mPerspectiveProjectionMatrix = new Matrix4();
 	/**
 	 * Matrix to use for creating an orthographic projection transform
 	 */
-	private Matrix mOrthographicProjectionMatrix = new Matrix();
+	private Matrix4 mOrthographicProjectionMatrix = new Matrix4();
 	/**
 	 * Matrix used to transform components, using perspective, rotation, etc.
 	 */
-	private Matrix mModelViewMatrix = new Matrix();
+	private Matrix4 mModelViewMatrix = new Matrix4();
 
 	/**
 	 * Used to derive the orientation of the device
@@ -243,7 +243,7 @@ public class OverlayView extends View {
 	 * 
 	 * @param rotationMatrix
 	 */
-	public void rotateView(Matrix rotationMatrix) {
+	public void rotateView(Matrix4 rotationMatrix) {
 		int width = getWidth();
 		int height = getHeight();
 

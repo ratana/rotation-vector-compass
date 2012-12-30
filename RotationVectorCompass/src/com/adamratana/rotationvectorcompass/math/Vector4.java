@@ -25,10 +25,10 @@ public final class Vector4 {
 	 *            The matrix
 	 * @return This vector for chaining
 	 */
-	public Vector4 mul(Matrix matrix) {
+	public Vector4 mul(Matrix4 matrix) {
 		float l_mat[] = matrix.val;
-		return this.set(x * l_mat[Matrix.M00] + y * l_mat[Matrix.M01] + z * l_mat[Matrix.M02] + w * l_mat[Matrix.M03], x * l_mat[Matrix.M10] + y * l_mat[Matrix.M11] + z * l_mat[Matrix.M12] + w * l_mat[Matrix.M13], x * l_mat[Matrix.M20] + y
-				* l_mat[Matrix.M21] + z * l_mat[Matrix.M22] + w * l_mat[Matrix.M23], x * l_mat[Matrix.M30] + y * l_mat[Matrix.M31] + z * l_mat[Matrix.M32] + w * l_mat[Matrix.M33]);
+		return this.set(x * l_mat[Matrix4.M00] + y * l_mat[Matrix4.M01] + z * l_mat[Matrix4.M02] + w * l_mat[Matrix4.M03], x * l_mat[Matrix4.M10] + y * l_mat[Matrix4.M11] + z * l_mat[Matrix4.M12] + w * l_mat[Matrix4.M13], x * l_mat[Matrix4.M20] + y
+				* l_mat[Matrix4.M21] + z * l_mat[Matrix4.M22] + w * l_mat[Matrix4.M23], x * l_mat[Matrix4.M30] + y * l_mat[Matrix4.M31] + z * l_mat[Matrix4.M32] + w * l_mat[Matrix4.M33]);
 	}
 
 	/**

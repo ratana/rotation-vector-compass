@@ -27,7 +27,7 @@ import android.widget.ToggleButton;
 
 import com.adamratana.rotationvectorcompass.camera.CameraPreviewLayer;
 import com.adamratana.rotationvectorcompass.camera.CameraUtil;
-import com.adamratana.rotationvectorcompass.math.Matrix;
+import com.adamratana.rotationvectorcompass.math.Matrix4;
 import com.adamratana.rotationvectorcompass.rotation.MagAccelListener;
 import com.adamratana.rotationvectorcompass.rotation.RotationUpdateDelegate;
 import com.adamratana.rotationvectorcompass.rotation.RotationVectorListener;
@@ -105,7 +105,7 @@ public class RotationVectorCompass extends Activity implements RotationUpdateDel
 	private static final float MIN_ORTHO_SCALE = 0.25f;
 
 	private OverlayView mOverlayView;
-	private Matrix mRotationMatrix = new Matrix();
+	private Matrix4 mRotationMatrix = new Matrix4();
 	private SensorManager mSensorManager;
 
 	private MagAccelListener mMagAccel;

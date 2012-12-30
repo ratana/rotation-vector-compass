@@ -6,7 +6,7 @@ import java.util.List;
 import android.util.FloatMath;
 import android.view.Surface;
 
-import com.adamratana.rotationvectorcompass.math.Matrix;
+import com.adamratana.rotationvectorcompass.math.Matrix4;
 import com.adamratana.rotationvectorcompass.math.Util;
 import com.adamratana.rotationvectorcompass.math.Vector3;
 import com.adamratana.rotationvectorcompass.math.Vector4;
@@ -44,8 +44,8 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 	private Vector3 mSphereTop = new Vector3(), mSphereBottom = new Vector3(), mNorthReference = new Vector3();
 	private Vector3 mNorthAbsolute = new Vector3(), mSouthAbsolute = new Vector3(), mWestAbsolute = new Vector3(), mEastAbsolute = new Vector3();
 
-	private Matrix mOrthographicProjectionMatrix = new Matrix();
-	private Matrix mModelViewMatrix = new Matrix();
+	private Matrix4 mOrthographicProjectionMatrix = new Matrix4();
+	private Matrix4 mModelViewMatrix = new Matrix4();
 
 	private List<Vector3> mOrthographicVertexBatch = new ArrayList<Vector3>();
 	private Vector4 vTemp = new Vector4();
@@ -63,7 +63,7 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 	}
 
 	@Override
-	public void getOrientation(Matrix rotationMatrix, int screenRotation, float[] out) {
+	public void getOrientation(Matrix4 rotationMatrix, int screenRotation, float[] out) {
 		rotatePoints(rotationMatrix, screenRotation);
 
 		Vector3 neighborPoint;
@@ -307,7 +307,7 @@ public class OrientationCalculatorImpl implements OrientationCalculator {
 	 * 
 	 * @param rotationMatrix
 	 */
-	public void rotatePoints(Matrix rotationMatrix, int screenRotation) {
+	public void rotatePoints(Matrix4 rotationMatrix, int screenRotation) {
 		resetPoints();
 		final int width = ORTHO_RESOLUTION;
 		final int height = ORTHO_RESOLUTION;

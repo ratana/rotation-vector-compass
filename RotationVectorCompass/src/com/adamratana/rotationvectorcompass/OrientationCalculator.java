@@ -1,6 +1,6 @@
 package com.adamratana.rotationvectorcompass;
 
-import com.adamratana.rotationvectorcompass.math.Matrix;
+import com.adamratana.rotationvectorcompass.math.Matrix4;
 
 public interface OrientationCalculator {
 	/**
@@ -14,5 +14,5 @@ public interface OrientationCalculator {
 	 * @param out
 	 *            - array of float[3] to dump values into
 	 */
-	public void getOrientation(Matrix rotationMatrix, int screenRotation, float[] out);
+	public void getOrientation(Matrix4 rotationMatrix, int screenRotation, float[] out);
 }
