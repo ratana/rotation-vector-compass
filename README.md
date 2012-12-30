@@ -13,9 +13,9 @@ In addition we manually perform rotation and translation and vector manipulation
 
 As an academic display of how both work, to compare and contrast, especially for those who many be unfamiliar.
 
-## Open-source LibGDX for certain math classes:
+## Open-source [LibGDX](http://code.google.com/p/libgdx/) for certain math classes:
 	
-Uses LibGDX for Matrix, Quaternion, Vector3 classes, Vector4 derived from Vector3
+Uses [LibGDX](http://code.google.com/p/libgdx/) for Matrix, Quaternion, Vector3 classes, Vector4 derived from Vector3
 
 ## Uses the Rotation Vector virtual Sensor:
 	
